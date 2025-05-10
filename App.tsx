@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { useFonts, Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto"
+import { useFonts, Roboto_200ExtraLight ,Roboto_300Light ,Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto"
 import { Register } from './src/screens/Register';
 
 export default function App() {
 
-   const [fontsLoaded] = useFonts({Roboto_400Regular, Roboto_700Bold});
+   const [fontsLoaded] = useFonts({Roboto_300Light, Roboto_400Regular, Roboto_700Bold});
 
   return (
     <>
