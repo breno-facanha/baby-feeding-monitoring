@@ -44,7 +44,8 @@ export const styles = StyleSheet.create({
     textbutton: {
         color: theme.COLORS.WHITE,
         justifyContent: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: theme.FONT_FAMILY.BOLD
     }
     
 
