@@ -4,7 +4,8 @@ import theme from "../../theme";
 export const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginTop: 100
+        marginTop: 100,
+        backgroundColor: theme.COLORS.WHITE
     },
     title:{
         color: theme.COLORS.ROXO_700,

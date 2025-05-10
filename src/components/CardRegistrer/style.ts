@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
         borderColor: theme.COLORS.GRAY_200,
         paddingLeft: 30,
         paddingRight: 30,
+        backgroundColor: theme.COLORS.WHITE
     },
     titulo: {
         color: theme.COLORS.BLACK,

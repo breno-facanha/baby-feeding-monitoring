@@ -14,7 +14,6 @@ export function CardDay({titulo, leite, subtitulo}: Props){
             <Text style={styles.titulo}>{titulo}</Text>
             <Text style={styles.leite}>{leite} ml</Text>
             <Text style={styles.subtitle}>{subtitulo}</Text>
-            <TouchableOpacity><Text>Adicionar Registro</Text></TouchableOpacity>
         </View>
     )
 }

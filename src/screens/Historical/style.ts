@@ -3,7 +3,9 @@ import theme from "../../theme";
 
 export const styles = StyleSheet.create({
     container:{
-        justifyContent: 'center',
-        alignItems: 'center'
+        height: '100%',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: theme.COLORS.WHITE
     }
 })

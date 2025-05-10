@@ -18,7 +18,7 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       { fontsLoaded ? 
-        <NavigationContainer >
+        <NavigationContainer>
           <Tab.Navigator screenOptions={{ tabBarActiveTintColor: theme.COLORS.ROXO_600, headerShown: false}}>
             <Tab.Screen 
               name='Registrar' 
