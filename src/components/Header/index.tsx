@@ -1,9 +1,16 @@
 import { Text, View } from "react-native";
+import { styles } from "./style";
 
-export function Header(){
+type Props = {
+    title: string,
+    subtitle: string
+}
+
+export function Header({title, subtitle}: Props){
     return (
-        <View>
-            <Text>Amamentação do Bebê</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
     )
 }
