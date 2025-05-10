@@ -26,10 +26,12 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 20,
         borderColor: theme.COLORS.GRAY_200,
-        paddingLeft: 18
+        paddingLeft: 18,
     },
     subititulo:{
-        marginTop: 15
+        paddingLeft: 5,
+        marginTop: 15,
+        marginBottom: 5
     },
     button:{
         height: 50,

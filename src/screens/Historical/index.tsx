@@ -7,7 +7,10 @@ export function Historical(){
     return (
         <View style={styles.container}>
             <Header title="Histórico de Mamadas" subtitle="09/05/2025" />
-            <CardMamadas />
+            <CardMamadas 
+                leite={20}
+                hora={'10:00'}
+            />
         </View>
     )
 }
