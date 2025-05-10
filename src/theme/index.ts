@@ -2,7 +2,9 @@ export default {
     COLORS: {
         WHITE: '#FFFFFF',
 
-        ROXO: '#7E69AB',
+        ROXO_300: '#B0A4CC', // Um tom mais claro
+        ROXO_500: '#7E69AB', // O tom base que você forneceu
+        ROXO_700: '#4D3F6B', // Um tom mais escuro
 
         GRAY_300: '#7C7C8A',
         GRAY_200: '#C4C4CC',
