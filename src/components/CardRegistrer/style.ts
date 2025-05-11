@@ -53,6 +53,11 @@ export const styles = StyleSheet.create({
     data:{
         width: '100%',
         height: 50
+    },
+    scrollContent:{
+        flex: 1,
+      justifyContent: 'flex-end', // Exemplo: posiciona os inputs na parte inferior antes do teclado subir
+      padding: 20,
     }
     
 
