@@ -3,7 +3,7 @@ import { styles } from "./style"
 
 type Props = {
     titulo: string,
-    leite: string,
+    leite: number,
     subtitulo: string,
 
 }

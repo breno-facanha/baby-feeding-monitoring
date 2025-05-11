@@ -10,12 +10,12 @@ export function Register(){
             <Header title="Registro do Bebê" subtitle="Acopanhamento de mamadas"/>
             <CardDay
                 titulo="Hoje"
-                leite="20"
+                leite= {0}
                 subtitulo="Total de leite"
             />
             <CardRegistrer
             leite = {0}
-            horario="te"
+            
             >
 
             </CardRegistrer>

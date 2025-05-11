@@ -49,6 +49,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         fontFamily: theme.FONT_FAMILY.BOLD
+    },
+    data:{
+        width: '100%',
+        height: 50
     }
     
 
