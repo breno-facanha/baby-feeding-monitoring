@@ -13,7 +13,12 @@ export function Register(){
                 leite="20"
                 subtitulo="Total de leite"
             />
-            <CardRegistrer></CardRegistrer>
+            <CardRegistrer
+            leite = {0}
+            horario="te"
+            >
+
+            </CardRegistrer>
         </View>
     )
 }
