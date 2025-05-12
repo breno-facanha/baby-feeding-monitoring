@@ -16,11 +16,12 @@ export function CardRegistrer({leite, horario}: Props){
     const [hour, setHour] = useState(data.getHours())
     const [minutes, setMinutes] = useState(data.getMinutes())
     const [date, setDate] = useState(data.getDate())
+    const [horaFull, setHoraFull] = useState(data.toLocaleTimeString())
 
     let dados = {
         id: mamadas.length + 1,
         ml: 20,
-        hora: hour,
+        hora: horaFull,
         data: date
     }
 

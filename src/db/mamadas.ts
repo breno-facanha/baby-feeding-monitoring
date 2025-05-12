@@ -3,7 +3,7 @@
 interface DadoMocado {
   id: number; // Representa o campo de auto incremento
   ml: number; // Representa o campo ml (mililitros ou outra unidade)
-  hora: number; // Representa o campo hora (um número)
+  hora: string; // Representa o campo hora (um número)
   data: number; // Representa o campo data (um número)
   observacao?: string; // Representa o campo observação (texto)
 }
@@ -14,21 +14,21 @@ export const mamadas: DadoMocado[] = [
   {
     id: 1,
     ml: 250,
-    hora: 14, // Exemplo: representando 14h
+    hora: '19:00:44', // Exemplo: representando 14h
     data: 20231026, // Exemplo: representando 26/10/2023 como um número
     observacao: 'Primeira coleta do dia.',
   },
   {
     id: 2,
     ml: 180,
-    hora: 18, // Exemplo: representando 18h
+    hora: '19:00:44', // Exemplo: representando 18h
     data: 20231026, // Exemplo: mesmo dia
     observacao: 'Segunda coleta, final do dia.',
   },
   {
     id: 3,
     ml: 300,
-    hora: 9, // Exemplo: representando 9h
+    hora: '19:00:44', // Exemplo: representando 9h
     data: 20231027, // Exemplo: dia seguinte
     observacao: 'Coleta inicial do novo dia.',
   },
