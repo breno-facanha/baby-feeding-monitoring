@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
         marginBottom: 7,
     },
     input:{
+        width: '100%',
         height: 50,
         borderStyle: 'solid',
         borderWidth: 1,
@@ -58,7 +59,39 @@ export const styles = StyleSheet.create({
         flex: 1,
       justifyContent: 'flex-end', // Exemplo: posiciona os inputs na parte inferior antes do teclado subir
       padding: 20,
+    },
+    datePicker: {
+        zIndex: 10,
+        width: '100%',
+        height: 50,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderRadius: 20,
+        borderColor: theme.COLORS.GRAY_200,
+        paddingLeft: 18,
+        backgroundColor: 'transparent',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    datePicker2: {
+        zIndex: -5,
+        width: '100%',
+        height: 50,
+        borderRadius: 20,
+        borderColor: theme.COLORS.GRAY_200,
+        justifyContent: 'center',
+        color: 'black'
+    },
+    horarioContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'flex-start',
+        gap: 5,
+    },
+    textHorario: {
+        zIndex: -10,
     }
-    
 
 })
