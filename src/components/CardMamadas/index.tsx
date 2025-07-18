@@ -1,6 +1,7 @@
 import { Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./style"
 import { useState } from "react";
+import { maskFiveCaracter } from "../../utils/maskFiveCaracter";
 
 type Props = {
     leite: number,
@@ -27,12 +28,11 @@ export function CardMamadas({leite, hora}: Props){
 
     }
 
-
     return(
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.leite}>{leite} ml</Text>
-                <Text style={styles.hora}>{hora}</Text>
+                <Text style={styles.hora}>{maskFiveCaracter(hora)}</Text>
             </View>
             {
             !visible ?

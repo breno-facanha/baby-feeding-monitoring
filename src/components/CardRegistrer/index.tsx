@@ -1,19 +1,11 @@
-import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./style"
 import { mamadas } from "../../db/mamadas";
 import { Clock } from "phosphor-react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker"
-import { useEffect, useState } from "react";
-import { maskaredHour } from "../../utils/maskaredHour";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { useState } from "react";
 
-
-type Props = {
-    leite?: number,
-    horario?: string
-}
-
-export function CardRegistrer({leite, horario}: Props){
+export function CardRegistrer(){
 
     const data = new Date()
     const [hour, setHour] = useState(data.getHours())
@@ -22,15 +14,15 @@ export function CardRegistrer({leite, horario}: Props){
     const [getMinutes, setGetMinutes] = useState(0)
     const [date, setDate] = useState(data.getDate())
     const [horaFull, setHoraFull] = useState(data.toLocaleTimeString())
+    const [leiteMl, setLeiteMl] = useState(''); 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
     let dados = {
         id: mamadas.length + 1,
-        ml: 20,
+        ml: parseInt(leiteMl) || 0, 
         hora: horaFull,
         data: date
     }
-
 
     function handleSubmitRegister(){
         try {
@@ -45,17 +37,27 @@ export function CardRegistrer({leite, horario}: Props){
         setDatePickerVisibility(!isDatePickerVisible);
     }
 
+    console.log(leiteMl, horaFull)
+
     return(
 
         <View style={styles.container}>
             <Text style={styles.titulo}>Registrar Nova Mamada</Text>
             <Text style={styles.subititulo}>Quantidade de Leite em ml </Text>
-            <TextInput style={styles.input} placeholder="Ex: 90" keyboardType="numeric">{leite}</TextInput>
+            <TextInput 
+                style={styles.input} 
+                placeholder="Ex: 90" 
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={(text) => setLeiteMl(text)}
+                value={leiteMl}
+            />
             <Text style={styles.subititulo}>Horário </Text>
             
             <TouchableOpacity onPress={showDatePicker} style={styles.datePicker}>
                 <View style={styles.horarioContainer}>
-                    <Clock size={24} color="#000" />
+                    // aumentar a espessura do icone Clock 
+                    <Clock size={24} color="#996DFF" weight="bold"/>
                     <TextInput
                         style={styles.textHorario}
                         
@@ -68,7 +70,7 @@ export function CardRegistrer({leite, horario}: Props){
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
                     mode="time"
-                    date={new Date(2023, 10, 10, hour, minutes)}
+                    date={new Date(2023, 10, 10, hour, minutes, 0)}
                     onConfirm={(date) => {
                         setGetHour(date.getHours())
                         setGetMinutes(date.getMinutes())
@@ -85,19 +87,6 @@ export function CardRegistrer({leite, horario}: Props){
                     >
                     
                 </DateTimePickerModal>
-                {/* <TextInput
-                    style={styles.datePicker2}
-                    placeholder={`${hour}:${minutes}`}
-                /> */}
-                
-                {/* <TextInput
-                    style={styles.datePicker2}
-                    placeholder="Ex: 08:00"
-                    value={maskaredHour(`${hour}:${minutes}`)}
-                
-                    keyboardType="numeric"
-                    maxLength={5}
-                /> */}
 
             </TouchableOpacity>
          

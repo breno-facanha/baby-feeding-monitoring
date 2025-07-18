@@ -24,12 +24,8 @@ export function Register(){
                 leite= {0}
                 subtitulo="Total de leite"
             />
-            <CardRegistrer
-            leite = {0}
-            
-            >
+            <CardRegistrer/>
 
-            </CardRegistrer>
         </View>
 
         </ScrollView>

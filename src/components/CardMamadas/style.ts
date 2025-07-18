@@ -18,16 +18,21 @@ export const styles = StyleSheet.create({
     header:{
         justifyContent: 'space-between',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     leite:{
         fontSize: theme.FONT_SIZE.XL,
         fontFamily: theme.FONT_FAMILY.REGULAR
     },
     hora:{
+        width: 70,
+        height: 30,
+        paddingTop: 5,
+        textAlign: 'right',
         fontSize: theme.FONT_SIZE.SM,
         color: theme.COLORS.GRAY_300,
-        fontFamily: theme.FONT_FAMILY.EXTRALIGHT
+        fontFamily: theme.FONT_FAMILY.EXTRALIGHT,
+        
     },
     observation:{
         fontSize: theme.FONT_SIZE.SM,
@@ -43,7 +48,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         borderWidth: 1,
-        marginBottom: 30
+        marginBottom: 10
     },
     buttonPressed:{
         backgroundColor: theme.COLORS.ROXO_300
@@ -52,7 +57,7 @@ export const styles = StyleSheet.create({
         textAlign:'center',
         color: theme.COLORS.WHITE,
         fontFamily: theme.FONT_FAMILY.BOLD,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
     },
     textInput:{
         alignItems: 'flex-start',

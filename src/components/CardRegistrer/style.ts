@@ -92,6 +92,7 @@ export const styles = StyleSheet.create({
     },
     textHorario: {
         zIndex: -10,
+        color: theme.COLORS.ROXO_600,
     }
 
 })

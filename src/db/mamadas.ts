@@ -12,13 +12,6 @@ interface DadoMocado {
 // Em dados mocados estáticos, o "auto incremento" do ID é feito manualmente.
 export const mamadas: DadoMocado[] = [
   {
-    id: 1,
-    ml: 250,
-    hora: '19:00:44', // Exemplo: representando 14h
-    data: 20231026, // Exemplo: representando 26/10/2023 como um número
-    observacao: 'Primeira coleta do dia.',
-  },
-  {
     id: 2,
     ml: 180,
     hora: '19:00:44', // Exemplo: representando 18h
