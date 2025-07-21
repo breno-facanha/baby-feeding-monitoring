@@ -8,7 +8,7 @@ import { useState } from "react";
 export function CardRegistrer(){
 
     const data = new Date()
-    const [hour, setHour] = useState(data.getHours())
+    const [hour, setHour] = useState(data.getHours() || 0)
     const [minutes, setMinutes] = useState(data.getMinutes())
     const [getHour, setGetHour] = useState(0)
     const [getMinutes, setGetMinutes] = useState(0)
@@ -69,21 +69,24 @@ export function CardRegistrer(){
                 </View>
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
-                    mode="time"
-                    date={new Date(2023, 10, 10, hour, minutes, 0)}
+                    mode="datetime"
+                    locale="pt-BR"
+                    date={new Date()}
                     onConfirm={(date) => {
                         setGetHour(date.getHours())
                         setGetMinutes(date.getMinutes())
                         setHour(date.getHours())
                         setMinutes(date.getMinutes())
                         setHoraFull(`${date.getHours()}:${date.getMinutes()}
+                        ${date.toISOString()}
                         `)
+                        // '${date.getDate()}:${date.getMonth() + 1}:${date.getUTCFullYear()}' \\
                         setDatePickerVisibility(false);
                     }}
                     onCancel={() => {
                         setDatePickerVisibility(false);
                     }}
-                    display="spinner"
+                    display="spinner" // or "inline" for a different style
                     >
                     
                 </DateTimePickerModal>
