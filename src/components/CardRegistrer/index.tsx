@@ -71,7 +71,7 @@ export function CardRegistrer({ onRecordAdded }: CardRegistrerProps) {
             Alert.alert('Sucesso', 'Mamada registrada com sucesso!');
             
             // Reset form
-            setMilkAmount('');
+            setMilkAmount('1');
             setSelectedDate(new Date());
             
             // Notify parent component
