@@ -14,7 +14,7 @@ O MilkBaby é uma ferramenta útil para pais e cuidadores acompanhar a alimenta�
 ## 📸 Screenshots
 
 ### Tela Registrar
-![Tela Registrar - Registro de Mamadas](assests/app.png)
+![Tela Registrar - Registro de Mamadas](assets/app.png)
 
 *A interface principal para registro rápido de mamadas com visualização do total diário de leite consumido (186 ml no exemplo)*
 
