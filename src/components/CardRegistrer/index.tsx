@@ -1,101 +1,157 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import { styles } from "./style"
-import { mamadas } from "../../db/mamadas";
 import { Clock } from "phosphor-react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker"
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import instance from "../../instance/instance";
+import { dataIsoInPtBr } from "../../utils/dataIsoInPtBr";
+import { CreateMamadaRequest, CardRegistrerProps, VALIDATION_LIMITS, ERROR_MESSAGES, ErrorMessage } from "../../types";
 
-export function CardRegistrer(){
+export function CardRegistrer({ onRecordAdded }: CardRegistrerProps) {
+    const currentDate = new Date();
+    const [selectedDate, setSelectedDate] = useState(currentDate);
+    const [milkAmount, setMilkAmount] = useState<string>('1');
+    const [isDatePickerVisible, setDatePickerVisibility] = useState<boolean>(false);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-    const data = new Date()
-    const [hour, setHour] = useState(data.getHours() || 0)
-    const [minutes, setMinutes] = useState(data.getMinutes())
-    const [getHour, setGetHour] = useState(0)
-    const [getMinutes, setGetMinutes] = useState(0)
-    const [date, setDate] = useState(data.getDate())
-    const [horaFull, setHoraFull] = useState(data.toLocaleTimeString())
-    const [leiteMl, setLeiteMl] = useState(''); 
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    // Validation
+    const isValidMilkAmount = (amount: string): boolean => {
+        const numAmount = parseInt(amount);
+        return !isNaN(numAmount) && 
+               numAmount >= VALIDATION_LIMITS.MIN_MILK_AMOUNT && 
+               numAmount <= VALIDATION_LIMITS.MAX_MILK_AMOUNT;
+    };
 
-    let dados = {
-        id: mamadas.length + 1,
-        ml: parseInt(leiteMl) || 0, 
-        hora: horaFull,
-        data: date
-    }
+    const getMilkAmountError = (amount: string): string | null => {
+        if (!amount.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
+        const numAmount = parseInt(amount);
+        if (isNaN(numAmount)) return ERROR_MESSAGES.INVALID_AMOUNT;
+        if (numAmount < VALIDATION_LIMITS.MIN_MILK_AMOUNT) return `A quantidade mínima é ${VALIDATION_LIMITS.MIN_MILK_AMOUNT}ml`;
+        if (numAmount > VALIDATION_LIMITS.MAX_MILK_AMOUNT) return `A quantidade máxima é ${VALIDATION_LIMITS.MAX_MILK_AMOUNT}ml`;
+        return null;
+    };
 
-    function handleSubmitRegister(){
-        try {
-            mamadas.push(dados)
-            console.log(dados)
-        } catch (error) {
-            console.log(error)
+    // Date formatting
+    const formatDisplayTime = (date: Date): string => {
+        return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    };
+
+    // Event handlers
+    const showDatePicker = useCallback(() => {
+        setDatePickerVisibility(true);
+    }, []);
+
+    const hideDatePicker = useCallback(() => {
+        setDatePickerVisibility(false);
+    }, []);
+
+    const handleDateConfirm = useCallback((date: Date) => {
+        setSelectedDate(date);
+        hideDatePicker();
+    }, [hideDatePicker]);
+
+    const handleSubmitRecord = useCallback(async () => {
+        const milkAmountError = getMilkAmountError(milkAmount);
+        
+        if (milkAmountError) {
+            Alert.alert('Erro', milkAmountError);
+            return;
         }
-    }
 
-    function showDatePicker() {
-        setDatePickerVisibility(!isDatePickerVisible);
-    }
+        const feedingData: CreateMamadaRequest = {
+            quantidade: parseInt(milkAmount),
+            dataHora: dataIsoInPtBr(selectedDate.toISOString()),
+            observacao: ''
+        };
 
-    console.log(leiteMl, horaFull)
+        setIsSubmitting(true);
+        
+        try {
+            const response = await instance.post('/mamada/includes', feedingData);
+            Alert.alert('Sucesso', 'Mamada registrada com sucesso!');
+            
+            // Reset form
+            setMilkAmount('');
+            setSelectedDate(new Date());
+            
+            // Notify parent component
+            onRecordAdded?.();
+            
+        } catch (error: any) {
+            console.error('Error adding record:', error);
+            let errorMessage: ErrorMessage = ERROR_MESSAGES.GENERIC_ERROR;
+            
+            if (!error.response) {
+                errorMessage = ERROR_MESSAGES.NETWORK_ERROR;
+            } else if (error.response.status >= 500) {
+                errorMessage = ERROR_MESSAGES.SERVER_ERROR;
+            }
+            
+            Alert.alert('Erro', errorMessage);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }, [milkAmount, selectedDate, onRecordAdded]);
 
-    return(
+    const milkAmountError = getMilkAmountError(milkAmount);
+    const hasError = milkAmountError !== null;
 
+    return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Registrar Nova Mamada</Text>
-            <Text style={styles.subititulo}>Quantidade de Leite em ml </Text>
+            
+            <Text style={styles.subititulo}>Quantidade de Leite (ml)</Text>
             <TextInput 
-                style={styles.input} 
+                style={[styles.input, hasError && styles.inputError]} 
                 placeholder="Ex: 90" 
                 keyboardType="numeric"
                 maxLength={3}
-                onChangeText={(text) => setLeiteMl(text)}
-                value={leiteMl}
+                onChangeText={setMilkAmount}
+                value={milkAmount}
+                editable={!isSubmitting}
+                accessibilityLabel="Quantidade de leite em mililitros"
             />
-            <Text style={styles.subititulo}>Horário </Text>
+            {hasError && (
+                <Text style={styles.errorText}>{milkAmountError}</Text>
+            )}
             
-            <TouchableOpacity onPress={showDatePicker} style={styles.datePicker}>
+            <Text style={styles.subititulo}>Horário</Text>
+            <TouchableOpacity 
+                onPress={showDatePicker} 
+                style={styles.datePicker}
+                disabled={isSubmitting}
+                accessibilityLabel="Selecionar horário"
+                accessibilityRole="button"
+            >
                 <View style={styles.horarioContainer}>
-                    // aumentar a espessura do icone Clock 
                     <Clock size={24} color="#996DFF" weight="bold"/>
-                    <TextInput
-                        style={styles.textHorario}
-                        
-                        value={getHour || getMinutes == 0 ? `${hour}:${minutes}` : `${getHour}:${getMinutes}`}
-                        keyboardType="numeric"
-                        maxLength={5}
-                        editable={false}
-                    />
+                    <Text style={styles.textHorario}>
+                        {formatDisplayTime(selectedDate)}
+                    </Text>
                 </View>
-                <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="datetime"
-                    locale="pt-BR"
-                    date={new Date()}
-                    onConfirm={(date) => {
-                        setGetHour(date.getHours())
-                        setGetMinutes(date.getMinutes())
-                        setHour(date.getHours())
-                        setMinutes(date.getMinutes())
-                        setHoraFull(`${date.getHours()}:${date.getMinutes()}
-                        ${date.toISOString()}
-                        `)
-                        // '${date.getDate()}:${date.getMonth() + 1}:${date.getUTCFullYear()}' \\
-                        setDatePickerVisibility(false);
-                    }}
-                    onCancel={() => {
-                        setDatePickerVisibility(false);
-                    }}
-                    display="spinner" // or "inline" for a different style
-                    >
-                    
-                </DateTimePickerModal>
-
             </TouchableOpacity>
+            
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="datetime"
+                locale="pt-BR"
+                date={selectedDate}
+                onConfirm={handleDateConfirm}
+                onCancel={hideDatePicker}
+                display="spinner"
+            />
          
-            <TouchableOpacity style={styles.button} onPress={handleSubmitRegister}>
-                <Text style={styles.textbutton}>Adicionar Registro</Text>
+            <TouchableOpacity 
+                style={[styles.button, isSubmitting && styles.buttonDisabled]} 
+                onPress={handleSubmitRecord}
+                disabled={isSubmitting}
+                accessibilityLabel="Adicionar registro de mamada"
+                accessibilityRole="button"
+            >
+                <Text style={styles.textbutton}>
+                    {isSubmitting ? 'Adicionando...' : 'Adicionar Registro'}
+                </Text>
             </TouchableOpacity>
         </View>
-    )
+    );
 }

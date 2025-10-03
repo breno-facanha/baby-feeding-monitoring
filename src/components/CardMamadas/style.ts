@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         fontFamily: theme.FONT_FAMILY.REGULAR
     },
     hora:{
-        width: 70,
+        width: 75,
         height: 30,
         paddingTop: 5,
         textAlign: 'right',
@@ -33,6 +33,14 @@ export const styles = StyleSheet.create({
         color: theme.COLORS.GRAY_300,
         fontFamily: theme.FONT_FAMILY.EXTRALIGHT,
         
+    },
+    data:{
+        width: 75,
+        height: 30,
+        textAlign: 'right',
+        fontSize: theme.FONT_SIZE.SM,
+        color: theme.COLORS.GRAY_300,
+        fontFamily: theme.FONT_FAMILY.EXTRALIGHT,
     },
     observation:{
         fontSize: theme.FONT_SIZE.SM,

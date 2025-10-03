@@ -91,8 +91,23 @@ export const styles = StyleSheet.create({
         gap: 5,
     },
     textHorario: {
-        zIndex: -10,
         color: theme.COLORS.ROXO_600,
+        fontSize: theme.FONT_SIZE.MD,
+        fontFamily: theme.FONT_FAMILY.REGULAR,
+    },
+    inputError: {
+        borderColor: '#FF4444',
+        borderWidth: 2,
+    },
+    errorText: {
+        color: '#FF4444',
+        fontSize: theme.FONT_SIZE.SM,
+        fontFamily: theme.FONT_FAMILY.REGULAR,
+        marginTop: 5,
+        marginLeft: 5,
+    },
+    buttonDisabled: {
+        opacity: 0.6,
     }
 
 })

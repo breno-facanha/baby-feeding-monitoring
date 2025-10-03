@@ -2,14 +2,18 @@ import { Pressable, Text, TextInput, TouchableOpacity, View } from "react-native
 import { styles } from "./style"
 import { useState } from "react";
 import { maskFiveCaracter } from "../../utils/maskFiveCaracter";
+import { maskaredData } from "../../utils/maskaredData";
+import { maskaredHourIso } from "../../utils/maskaredHourIso";
+import { maskaredHour } from "../../utils/maskaredHour";
 
 type Props = {
     leite: number,
     hora: string,
+    data: string
 }
 
 
-export function CardMamadas({leite, hora}: Props){
+export function CardMamadas({leite, hora, data}: Props){
     const [visible, setVisible] = useState(false)
     const [observation, setObservetion] = useState('')
     const [textButton, setTextButton] = useState('Adicionar Observação')
@@ -32,7 +36,10 @@ export function CardMamadas({leite, hora}: Props){
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.leite}>{leite} ml</Text>
-                <Text style={styles.hora}>{maskFiveCaracter(hora)}</Text>
+                <View>
+                    <Text style={styles.hora}>{maskaredHour(hora)}</Text>
+                    <Text style={styles.data}>{maskaredData(data)}</Text>
+                </View>
             </View>
             {
             !visible ?
